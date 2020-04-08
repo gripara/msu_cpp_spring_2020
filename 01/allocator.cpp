@@ -7,14 +7,14 @@ size_t blockSize;
 
 void makeAllocator(size_t maxSize)
 {
-	mem_ptr = std::malloc(maxSize);
+	mem_ptr = (char*) std::malloc(maxSize * sizeof(char));
 	occSize = 0;
 	blockSize = maxSize;
 }
 
 char* alloc(size_t size)
 {
-	if (size > blockSize - occSize) return nullptr;
+	if (mem_ptr == nullptr or size > blockSize - occSize) return nullptr;
 	else
 	{
 		occSize += size;
